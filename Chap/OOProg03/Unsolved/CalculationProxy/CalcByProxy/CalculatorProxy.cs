@@ -31,6 +31,13 @@ public class CalculatorProxy : ICalculate
     public int Calculate(Coordinate c)
     {
         // Implement this method according to the description above.
+        int? cachedResult = _cache.Lookup(c);
+        if(cachedResult != null)
+        {
+            return cachedResult.Value;
+        }
+        int result = _calculator.Calculate(c);
+        _cache.Insert(c,result);
         return _calculator.Calculate(c);
     }
     #endregion

@@ -63,5 +63,10 @@ public class Player
     {
         _hitPoints = _hitPoints - points;
     }
+    public void Attack(Player defender)
+    {
+        if (Dead) return;
+        defender.ReceiveDamage(DealDamage());
+    }
     #endregion
 }

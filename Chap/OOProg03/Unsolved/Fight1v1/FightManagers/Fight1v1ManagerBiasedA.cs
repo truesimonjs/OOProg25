@@ -19,7 +19,9 @@ public class Fight1v1ManagerBiasedA : Fight1v1Manager
     /// </summary>
     protected override void ExchangeBlows(Player playerA, Player playerB)
     {
-        // Implement ExchangeBlows according to the specification above.
+        playerA.Attack(playerB);
+        playerB.Attack(PlayerA);
+
     }
     #endregion
 }

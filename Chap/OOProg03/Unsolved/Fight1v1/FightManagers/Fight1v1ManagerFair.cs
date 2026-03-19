@@ -22,7 +22,24 @@ public class Fight1v1ManagerFair : Fight1v1Manager
     /// </summary>
     protected override void ExchangeBlows(Player playerA, Player playerB)
     {
-        // Implement ExchangeBlows according to the specification above.
+        int percent = _generator.Next(100) + 1;
+        if (percent<=50)
+        {
+
+            playerA.Attack(playerB);
+            playerB.Attack(playerA);
+        }
+        else
+        {
+            playerB.Attack(playerA);
+            playerA.Attack(playerB);
+        }
+       
     }
+   /* private void Attack (Player Attacker, Player defender)
+    {
+        if (Attacker.Dead) return;
+        defender.ReceiveDamage(Attacker.DealDamage());
+    } */
     #endregion
 }

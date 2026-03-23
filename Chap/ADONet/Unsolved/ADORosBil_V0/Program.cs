@@ -13,8 +13,46 @@ internal class Program
         builder.InitialCatalog = "RosBilDB";
 
 
+
         ReadKunde(builder);
         ReadBil(builder);
+        ReadLeje(builder);
+    }
+    private static void ReadLeje(SqlConnectionStringBuilder builder)
+    {
+        List<Leje> lejeAftaler = new();
+        try
+        {
+            using SqlConnection connection = new SqlConnection(builder.ConnectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand("select * from Leje", connection);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int id = reader.GetInt32(reader.GetOrdinal("Id"));
+                int bilId = reader.GetInt32(reader.GetOrdinal("BilId"));
+                int kundeId = reader.GetInt32(reader.GetOrdinal("KundeId"));
+                DateTime date = reader.GetDateTime(reader.GetOrdinal("Dato"));
+                int antalDage = reader.GetInt32(reader.GetOrdinal("AntalDage"));
+                lejeAftaler.Add(new(id, bilId, kundeId, date, antalDage));
+            }
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        // 3) Udskriv alle lejeaftaler 
+        Console.WriteLine($"Alle lejeaftaler ({lejeAftaler.Count} ialt)");
+        Console.WriteLine("----------------------------------");
+        foreach (Leje leje in lejeAftaler)
+        {
+            Console.WriteLine(leje);
+        }
+        Console.WriteLine();
+
+
     }
     private static void ReadBil(SqlConnectionStringBuilder builder)
     {

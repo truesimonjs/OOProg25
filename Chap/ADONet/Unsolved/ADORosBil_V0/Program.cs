@@ -25,19 +25,20 @@ internal class Program
         {
             using SqlConnection connection = new SqlConnection(builder.ConnectionString);
             connection.Open();
-            string select = "select Leje.Id,Kunde.Navn as KundeNavn,BilId,Leje.Dato,Leje.AntalDage" +
-                " from Leje" +
-                " inner join Kunde on Leje.KundeId=Kunde.Id;";
+            string select = "select Leje.Id,Kunde.Navn as KundeNavn,Bil.Model as BilModel,Leje.Dato,Leje.AntalDage " +
+                "from Leje " +
+                "inner join Kunde on Leje.KundeId=Kunde.Id " +
+                "inner join Bil on Leje.BilId=Bil.Id;";
             SqlCommand cmd = new SqlCommand(select, connection);
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 int id = reader.GetInt32(reader.GetOrdinal("Id"));
                 string kundeNavn = reader.GetString(reader.GetOrdinal("KundeNavn"));
-                int bilId = reader.GetInt32(reader.GetOrdinal("BilId"));
+                string bilModel = reader.GetString(reader.GetOrdinal("BilModel"));
                 DateTime date = reader.GetDateTime(reader.GetOrdinal("Dato"));
                 int antalDage = reader.GetInt32(reader.GetOrdinal("AntalDage"));
-                lejeAftaler.Add(new(id, kundeNavn,bilId, date, antalDage));
+                lejeAftaler.Add(new(id, kundeNavn,bilModel, date, antalDage));
             }
 
         }

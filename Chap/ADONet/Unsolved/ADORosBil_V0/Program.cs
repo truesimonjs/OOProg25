@@ -25,23 +25,25 @@ internal class Program
         {
             using SqlConnection connection = new SqlConnection(builder.ConnectionString);
             connection.Open();
-            SqlCommand cmd = new SqlCommand("select * from Leje", connection);
+            string select = "select Leje.Id,Kunde.Navn as KundeNavn,BilId,Leje.Dato,Leje.AntalDage" +
+                " from Leje" +
+                " inner join Kunde on Leje.KundeId=Kunde.Id;";
+            SqlCommand cmd = new SqlCommand(select, connection);
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 int id = reader.GetInt32(reader.GetOrdinal("Id"));
+                string kundeNavn = reader.GetString(reader.GetOrdinal("KundeNavn"));
                 int bilId = reader.GetInt32(reader.GetOrdinal("BilId"));
-                int kundeId = reader.GetInt32(reader.GetOrdinal("KundeId"));
                 DateTime date = reader.GetDateTime(reader.GetOrdinal("Dato"));
                 int antalDage = reader.GetInt32(reader.GetOrdinal("AntalDage"));
-                lejeAftaler.Add(new(id, bilId, kundeId, date, antalDage));
+                lejeAftaler.Add(new(id, kundeNavn,bilId, date, antalDage));
             }
 
         }
-        catch (Exception)
+        catch (SqlException sqlEx)
         {
-
-            throw;
+            Console.WriteLine($"SqlException under læsning fra DB : {sqlEx.Message}");
         }
         // 3) Udskriv alle lejeaftaler 
         Console.WriteLine($"Alle lejeaftaler ({lejeAftaler.Count} ialt)");
@@ -72,10 +74,9 @@ internal class Program
                 biler.Add(new Bil(id, nummerplade, model, prisPrDag));
             }
         }
-        catch (Exception)
+        catch (SqlException sqlEx)
         {
-
-            throw;
+            Console.WriteLine($"SqlException under læsning fra DB : {sqlEx.Message}");
         }
         // 3) Udskriv alle biler 
         Console.WriteLine($"Alle biler ({biler.Count} ialt)");

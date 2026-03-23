@@ -10,7 +10,7 @@ namespace ADORosBil
     internal class Leje
     {
         public int Id { get; }
-        public int KundeId { get; set; }
+        public string KundeNavn { get; set; }
         
         public int BilId { get; set; }
 
@@ -18,10 +18,10 @@ namespace ADORosBil
 
         public int AntalDage { get; set; }
 
-        public Leje(int id,int kundeId, int bilId, DateTime date,int antalDage)
+        public Leje(int id,string kundeNavn, int bilId, DateTime date,int antalDage)
         {
             this.Id = id;
-            this.KundeId = kundeId;
+            this.KundeNavn = kundeNavn;
             this.BilId = bilId;
             this.Date = date;
             this.AntalDage = antalDage;
@@ -29,7 +29,7 @@ namespace ADORosBil
 
         public override string ToString()
         {
-            return $"[LejeAftale {Id}] {KundeId} har lejet {BilId} i {AntalDage} dage";
+            return $"[LejeAftale {Id}] {KundeNavn} har lejet {BilId} i {AntalDage} dage";
         }
     }
 }

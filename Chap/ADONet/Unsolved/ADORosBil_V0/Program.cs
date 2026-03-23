@@ -1,6 +1,8 @@
 ﻿
 // 1) DB opsætning
+using ADORosBil;
 using Microsoft.Data.SqlClient;
+using System.Reflection;
 
 internal class Program
 {
@@ -12,6 +14,39 @@ internal class Program
 
 
         ReadKunde(builder);
+        ReadBil(builder);
+    }
+    private static void ReadBil(SqlConnectionStringBuilder builder)
+    {
+        List<Bil> biler = new List<Bil>();
+        try
+        {
+            using SqlConnection connection = new SqlConnection(builder.ConnectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand("select * from Bil", connection);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int id = reader.GetInt32(reader.GetOrdinal("Id"));
+                string nummerplade = reader.GetString(reader.GetOrdinal("Nummerplade"));
+                string model = reader.GetString(reader.GetOrdinal("Model"));
+                int prisPrDag = reader.GetInt32(reader.GetOrdinal("PrisPrDag"));
+                biler.Add(new Bil(id, nummerplade, model, prisPrDag));
+            }
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        // 3) Udskriv alle biler 
+        Console.WriteLine($"Alle biler ({biler.Count} ialt)");
+        Console.WriteLine("----------------------------------");
+        foreach (Bil bil in biler)
+        {
+            Console.WriteLine(bil);
+        }
+        Console.WriteLine();
     }
     private static void ReadKunde(SqlConnectionStringBuilder builder)
     {

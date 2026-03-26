@@ -28,5 +28,13 @@ public class DBMethodsKunde : DBMethodsBase<Kunde>
 		cmd.Parameters.AddWithValue("@Telefon", kunde.Telefon);
 		cmd.Parameters.AddWithValue("@VIP", kunde.VIP);
 	}
+	public List<Kunde> GetVipKunde()
+	{
+		List<Kunde> kunder = ReadAllFromDB();
+		kunder.RemoveAll(item => !item.VIP);
+		return kunder;
+		
+	}
 }
+
 

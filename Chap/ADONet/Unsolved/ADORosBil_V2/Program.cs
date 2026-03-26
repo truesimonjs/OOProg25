@@ -17,7 +17,7 @@ List<Bil> biler = dbMethodsBil.ReadAllFromDB();
 Helpers.PrintList(biler);
 
 DBMethodsLeje dbMethodsLeje = new DBMethodsLeje(builder.ConnectionString, dbMethodsBil, dbMethodsKunde);
-// DBMethodsLejeJoin dbMethodsLeje = new DBMethodsLejeJoin(builder.ConnectionString);
+//DBMethodsLejeJoin dbMethodsLeje = new DBMethodsLejeJoin(builder.ConnectionString);
 List<Leje> lejer = dbMethodsLeje.ReadAllFromDB();
 Helpers.PrintList(lejer);
 
@@ -66,3 +66,4 @@ dbMethodsLeje.DeleteFromDB(l2Id);
 // 10) Læs alle Leje-objekter fra DB og udskriv dem (bør udskrive 8 Leje-objekter)
 lejer = dbMethodsLeje.ReadAllFromDB();
 Helpers.PrintList(lejer);
+Helpers.PrintList(dbMethodsKunde.GetVipKunde());

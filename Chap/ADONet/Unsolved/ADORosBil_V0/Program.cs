@@ -29,8 +29,10 @@ internal class Program
                 "from Leje " +
                 "inner join Kunde on Leje.KundeId=Kunde.Id " +
                 "inner join Bil on Leje.BilId=Bil.Id;";
+            //alternative version that reads query from file
             FileInfo file = new FileInfo("D:\\GithubFiles\\OOProg25\\Chap\\ADONet\\Unsolved\\ADORosBil_V0\\GetLeje.sql");
             select = file.OpenText().ReadToEnd();
+            //
             SqlCommand cmd = new SqlCommand(select, connection);
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())

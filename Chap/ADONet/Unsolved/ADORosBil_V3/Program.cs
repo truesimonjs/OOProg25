@@ -1,6 +1,8 @@
 ﻿
 
 // 1) Setup
+using ADORosBil.Models;
+
 DataService dataService = new DataService("(localdb)\\MSSQLLocalDB", "RosBilDB");
 UI ui = new UI(dataService);
 
@@ -52,3 +54,9 @@ dataService.Udlejninger.Delete(idl2);
 
 // 10) Vis alle Udlejninger (bør udskrive 8 Leje-objekter)
 ui.VisAlleUdlejninger();
+Medarbejder medarbejder1 = new(0, "john");
+Medarbejder medarbejder2 = new(1, "garry");
+
+dataService.MedarbejderRepo.Create(medarbejder1);
+//dataService.MedarbejderRepo.Create(medarbejder2);
+ui.VisAlleMedarbejder();

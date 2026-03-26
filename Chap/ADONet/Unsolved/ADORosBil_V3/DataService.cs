@@ -1,4 +1,6 @@
 ﻿
+using ADORosBil.Models;
+using ADORosBil.Repositories;
 using Microsoft.Data.SqlClient;
 
 /// <summary>
@@ -10,6 +12,7 @@ public class DataService
 	public IRepository<Kunde> Kunder { get; }
 	public IRepository<Bil> Biler { get; }
 	public IRepository<Leje> Udlejninger { get; }
+	public IRepository<Medarbejder> MedarbejderRepo { get; }
 
 	public DataService(string dataSource, string initialCatalog)
 	{
@@ -22,5 +25,6 @@ public class DataService
 		Kunder = new KundeRepository(builder.ConnectionString);
 		Biler = new BilRepository(builder.ConnectionString);
 		Udlejninger = new LejeRepository(builder.ConnectionString);
+		MedarbejderRepo = new MedarbejderRepository(builder.ConnectionString);
 	}
 }

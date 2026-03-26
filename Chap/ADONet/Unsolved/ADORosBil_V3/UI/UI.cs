@@ -25,6 +25,10 @@ public class UI
 	{
 		VisAlle(_dataService.Udlejninger);
 	}
+	public void VisAlleMedarbejder()
+	{
+		VisAlle(_dataService.MedarbejderRepo);
+	}
 
 	private void VisAlle<T>(IRepository<T> repo) where T : IHarId
 	{

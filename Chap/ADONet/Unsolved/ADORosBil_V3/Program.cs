@@ -57,6 +57,8 @@ ui.VisAlleUdlejninger();
 Medarbejder medarbejder1 = new(0, "john");
 Medarbejder medarbejder2 = new(1, "garry");
 
-dataService.MedarbejderRepo.Create(medarbejder1);
-//dataService.MedarbejderRepo.Create(medarbejder2);
+int medArbejderId1 = dataService.MedarbejderRepo.Create(medarbejder1);
+int medArbejderId2 = dataService.MedarbejderRepo.Create(medarbejder2);
 ui.VisAlleMedarbejder();
+dataService.MedarbejderRepo.Delete(medArbejderId1);
+dataService.MedarbejderRepo.Delete(medArbejderId2);

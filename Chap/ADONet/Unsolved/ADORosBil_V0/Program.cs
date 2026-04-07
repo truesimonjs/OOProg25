@@ -25,13 +25,11 @@ internal class Program
         {
             using SqlConnection connection = new SqlConnection(builder.ConnectionString);
             connection.Open();
-            string select = "select Leje.Id,Kunde.Navn as KundeNavn,Bil.Model as BilModel,Leje.Dato,Leje.AntalDage " +
-                "from Leje " +
-                "inner join Kunde on Leje.KundeId=Kunde.Id " +
-                "inner join Bil on Leje.BilId=Bil.Id;";
-            //alternative version that reads query from file
-            FileInfo file = new FileInfo("D:\\GithubFiles\\OOProg25\\Chap\\ADONet\\Unsolved\\ADORosBil_V0\\GetLeje.sql");
-            select = file.OpenText().ReadToEnd();
+           
+            FileInfo file;
+            //"copy to directory" must be set to always in the properties of the file. otherwise the file won't be where the program expects it
+            file = new FileInfo("GetLeje.sql");
+            string select = file.OpenText().ReadToEnd();
             //
             SqlCommand cmd = new SqlCommand(select, connection);
             SqlDataReader reader = cmd.ExecuteReader();

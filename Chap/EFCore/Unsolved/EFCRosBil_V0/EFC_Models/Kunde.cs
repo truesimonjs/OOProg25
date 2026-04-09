@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFCRosBil;
+
 
 [Table("Kunde")]
 public partial class Kunde
@@ -23,8 +23,6 @@ public partial class Kunde
     [Column("VIP")]
     public bool Vip { get; set; }
 
-	public override string ToString()
-	{
-		return $"[Kunde {Id}] {Navn} (tlf: {Telefon}), er {(Vip ? "" : "ikke ")}VIP ";
-	}
+    [InverseProperty("Kunde")]
+    public virtual ICollection<Leje> Lejes { get; set; } = new List<Leje>();
 }

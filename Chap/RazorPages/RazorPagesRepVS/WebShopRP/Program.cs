@@ -1,3 +1,5 @@
+using WebShopRP.Services;
+
 namespace WebShopRP
 {
     public class Program
@@ -8,6 +10,7 @@ namespace WebShopRP
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddSingleton<IProductDataService, ProductDataService>();
 
             var app = builder.Build();
 

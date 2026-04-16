@@ -1,0 +1,13 @@
+﻿@page
+@model RosBilRP.Pages.Ansatte.SletAnsatteModel
+@{
+}
+<h1 class="display-3 mb-5">Vil du slette denne Kunde?</h1>
+
+<div class="alert alert-danger">
+    <h5>Er du sikker på, at du vil slette @Model.Element.Navn</h5>
+    <form method="post">
+        <input type="submit" value="Ja" class="btn btn-outline-danger mt-3">
+        <a class="btn btn-outline-primary mt-3" asp-page="/Ansatte/AlleAnsatte">Nej</a>
+    </form>
+</div>

@@ -15,6 +15,7 @@
                         <h3 class="card-title">@elem.Kunde.Navn / @elem.Bil.Nummerplade</h3>
                         <h5>@elem.Dato.ToShortDateString()</h5>
                         <h5>@elem.AntalDage dage</h5>
+                        <h5>@(elem.Bil.PrisPrDag*@elem.AntalDage) Kr</h5>
                         <div>
                             @if (Model.CanDelete(elem.Id))
                             {

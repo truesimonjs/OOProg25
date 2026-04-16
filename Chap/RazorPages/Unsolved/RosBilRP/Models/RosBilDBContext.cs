@@ -17,6 +17,8 @@ public partial class RosBilDBContext : DbContext
     {
     }
 
+    public virtual DbSet<Ansat> Ansats { get; set; }
+
     public virtual DbSet<Bil> Bils { get; set; }
 
     public virtual DbSet<Kunde> Kundes { get; set; }
@@ -24,27 +26,35 @@ public partial class RosBilDBContext : DbContext
     public virtual DbSet<Leje> Lejes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=RosBilDB;Integrated Security=True;Encrypt=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Ansat>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Ansat__3214EC07C32AD702");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+        });
+
         modelBuilder.Entity<Bil>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Bil__3214EC07B9837D85");
+            entity.HasKey(e => e.Id).HasName("PK__Bil__3214EC078EE6EB0D");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<Kunde>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Kunde__3214EC07C9968214");
+            entity.HasKey(e => e.Id).HasName("PK__Kunde__3214EC07F9E60CD9");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<Leje>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Leje__3214EC0797700248");
+            entity.HasKey(e => e.Id).HasName("PK__Leje__3214EC07E4F91169");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 

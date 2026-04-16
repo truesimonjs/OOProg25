@@ -48,3 +48,6 @@ public interface IBilRepository : IRepository<Bil>
 public interface ILejeRepository : IRepository<Leje>
 {
 }
+public interface IAnsatRepository : IRepository<Ansat> 
+{ 
+}

@@ -20,6 +20,17 @@ public partial class Kunde : IHarId
 		return new Kunde { Navn = navn, Telefon = telefon, Vip = vip };
 	}
 }
+public partial class Ansat : IHarId
+{
+    public override string ToString()
+    {
+		return $"[Kunde {Id}] {Navn} (tlf: {Telefon})";
+    }
+	public static Ansat Construct (string navn, int telefon)
+	{
+		return new Ansat { Navn = navn, Telefon = telefon };
+	}
+}
 
 public partial class Bil : IHarId
 {

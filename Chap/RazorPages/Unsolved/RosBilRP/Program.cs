@@ -7,6 +7,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IBilRepository, BilRepository>();
 builder.Services.AddSingleton<IKundeRepository, KundeRepository>();
 builder.Services.AddSingleton<ILejeRepository, LejeRepository>();
+builder.Services.AddSingleton<IAnsatRepository,AnsatRepository>();
 
 var app = builder.Build();
 

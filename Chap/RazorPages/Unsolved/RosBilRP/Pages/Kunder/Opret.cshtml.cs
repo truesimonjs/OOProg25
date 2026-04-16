@@ -2,11 +2,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RosBilRP.Models;
 using RosBilRP.Services;
+using RosBilRP.SJS;
 
 namespace RosBilRP.Pages.Kunder;
 
-public class OpretModel : PageModel
+public class OpretModel : OpretPageModelBase<Kunde, IKundeRepository>
 {
+
+
+
+    /*
 	private IKundeRepository _repo;
 
 	[BindProperty]
@@ -31,4 +36,8 @@ public class OpretModel : PageModel
 		// Vend tilbage til oversigen
 		return RedirectToPage("Alle");
 	}
+	*/
+    public OpretModel(IKundeRepository repo) : base(repo)
+    {
+    }
 }

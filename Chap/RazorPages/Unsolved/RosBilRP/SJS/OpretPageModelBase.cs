@@ -13,7 +13,7 @@ namespace RosBilRP.SJS
         private RepositoryT repo;
         [BindProperty]
         public T Element { get; set; } = new T();
-        public virtual string ReturnPage { get => "Alle"; }
+        public virtual string ReturnPage => "Alle";
         public OpretPageModelBase(RepositoryT repo)
         {
             this.repo = repo;

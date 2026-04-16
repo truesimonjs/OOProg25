@@ -10,7 +10,7 @@ namespace RosBilRP.SJS
         
         where RepositoryT : IRepository<T>
     {
-        private RepositoryT repo;
+        protected RepositoryT repo;
         [BindProperty]
         public T Element { get; set; } = new T();
         public virtual string ReturnPage => "Alle";

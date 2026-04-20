@@ -8,18 +8,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RosBilRP.Models;
 
-[Table("Ansat")]
-public partial class Ansat
+[Table("Opgave")]
+public partial class Opgave
 {
     [Key]
     public int Id { get; set; }
 
-    [Required]
-    [StringLength(50)]
-    public string Navn { get; set; }
+    public int AnsatId { get; set; }
 
-    public int Telefon { get; set; }
+    public int BilId { get; set; }
 
-    [InverseProperty("Ansat")]
-    public virtual ICollection<Opgave> Opgaves { get; set; } = new List<Opgave>();
+    [ForeignKey("AnsatId")]
+    [InverseProperty("Opgaves")]
+    public virtual Ansat Ansat { get; set; }
+
+    [ForeignKey("BilId")]
+    [InverseProperty("Opgaves")]
+    public virtual Bil Bil { get; set; }
 }

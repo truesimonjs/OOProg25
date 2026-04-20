@@ -26,4 +26,7 @@ public partial class Bil
 
     [InverseProperty("Bil")]
     public virtual ICollection<Leje> Lejes { get; set; } = new List<Leje>();
+
+    [InverseProperty("Bil")]
+    public virtual ICollection<Opgave> Opgaves { get; set; } = new List<Opgave>();
 }

@@ -10,6 +10,7 @@ public class AlleModel : AllePageModelBase<Leje, ILejeRepository>
 {
     public AlleModel(ILejeRepository repo) : base(repo)
     {
+
     }
 }
 

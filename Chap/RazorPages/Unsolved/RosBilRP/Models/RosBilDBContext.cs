@@ -25,6 +25,8 @@ public partial class RosBilDBContext : DbContext
 
     public virtual DbSet<Leje> Lejes { get; set; }
 
+    public virtual DbSet<Opgave> Opgaves { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=RosBilDB;Integrated Security=True;Encrypt=True");
@@ -65,6 +67,21 @@ public partial class RosBilDBContext : DbContext
             entity.HasOne(d => d.Kunde).WithMany(p => p.Lejes)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_KundeId");
+        });
+
+        modelBuilder.Entity<Opgave>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Opgave__3214EC07E814ED5C");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Ansat).WithMany(p => p.Opgaves)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Opgave__AnsatId__02FC7413");
+
+            entity.HasOne(d => d.Bil).WithMany(p => p.Opgaves)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Opgave__BilId__04E4BC85");
         });
 
         OnModelCreatingPartial(modelBuilder);

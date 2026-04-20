@@ -33,6 +33,10 @@
       {
          "Name": "[dbo].[Leje]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Opgave]",
+         "ObjectType": 0
       }
    ],
    "UiHint": null,

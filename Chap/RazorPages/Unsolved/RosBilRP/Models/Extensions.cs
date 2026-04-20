@@ -59,3 +59,15 @@ public partial class Leje : IHarId
 		return new Leje { KundeId = kundeId, BilId = bilId, Dato = dato, AntalDage = antalDage };
 	}
 }
+public partial class Opgave : IHarId
+{
+	public override string ToString()
+	{
+		return $"{Ansat.Navn} skal arbejde på bilen {Bil.Nummerplade}";
+
+	}
+	public static Opgave Construct (int ansatId,int bilId)
+	{
+		return new Opgave {AnsatId=ansatId, BilId = bilId };
+	}
+}

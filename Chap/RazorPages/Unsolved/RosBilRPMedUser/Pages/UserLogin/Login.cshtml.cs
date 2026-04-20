@@ -1,8 +1,11 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RosBilRP.Models;
 using RosBilRP.Services;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace RosBilRP.Pages.UserLogin
 {
@@ -23,8 +26,39 @@ namespace RosBilRP.Pages.UserLogin
             this.userRepository = userRepository;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnPost()
         {
+            CurrentUser = userRepository.VerifyUser(UserName, Password);
+
+            if (CurrentUser == null)
+            {
+                ErrorMessage = "Kunne ikke logge ind";
+                return Page();
+            }
+
+            // Log ind
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                BuildClaimsPrincipal(CurrentUser));
+
+            return RedirectToPage("/Index");
         }
+
+
+        private ClaimsPrincipal BuildClaimsPrincipal(User user)
+        {
+            // Opbyg Claims-liste
+            List<Claim> claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Name, user.Navn));
+            claims.Add(new Claim(ClaimTypes.Role, user.Rolle));
+
+            // Opret ClaimsIdentity (claims plus Authentication-strategi)
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Opret endeligt ClaimsPrincipal-objekt
+            return new ClaimsPrincipal(claimsIdentity);
+        }
+
     }
 }

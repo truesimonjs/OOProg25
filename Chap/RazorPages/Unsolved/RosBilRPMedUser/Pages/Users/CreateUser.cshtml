@@ -1,0 +1,25 @@
+﻿@page
+@model RosBilRP.Pages.Users.CreateUserModel
+@{
+}
+<h1 class="display-5 mb-3">Opret ny User</h1>
+
+<form method="post">
+    <div class="form-group mb-3">
+        <label asp-for="@Model.Element.Navn" class="control-lable"></label>
+        <input asp-for="@Model.Element.Navn" class="form-control" />
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="@Model.Element.Rolle" class="control-lable"></label>
+        <select asp-for="@Model.Element.Rolle" asp-items="@Model.Roles"
+                class="form-control">
+        </select>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="@Model.Element.Password" class="control-lable"></label>
+        <input asp-for="@Model.Element.Password" class="form-control" />
+    </div>
+    <div class="form-group mb-3">
+        <input type="submit" value="Create" class="btn btn-outline-primary" />
+    </div>
+</form>

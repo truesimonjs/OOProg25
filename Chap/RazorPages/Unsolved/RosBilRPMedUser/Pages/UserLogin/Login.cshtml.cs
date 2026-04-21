@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using RosBilRP.Models;
 using RosBilRP.Services;
 using System.ComponentModel.DataAnnotations;
+using System.Dynamic;
 using System.Security.Claims;
 
 namespace RosBilRP.Pages.UserLogin
@@ -25,7 +26,17 @@ namespace RosBilRP.Pages.UserLogin
         {
             this.userRepository = userRepository;
         }
-
+        public void OnGet()
+        {
+            if (userRepository.All.Count== 0)
+            {
+                User user = new();
+                user.Rolle = "admin";
+                user.Navn = "admin";
+                user.Password = "admin";
+                userRepository.Create(user);
+            }
+        }
         public async Task<IActionResult> OnPost()
         {
             CurrentUser = userRepository.VerifyUser(UserName, Password);

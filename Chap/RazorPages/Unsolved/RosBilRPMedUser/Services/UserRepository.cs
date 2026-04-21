@@ -1,9 +1,20 @@
-﻿using RosBilRP.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using RosBilRP.Models;
 
 namespace RosBilRP.Services
 {
     public class UserRepository : EFCRepositoryBase<User,RosBilDBContext>, IUserRepository
     {
+        private PasswordHasher<string> passwordHasher;
+        public UserRepository()
+        {
+            this.passwordHasher = new();
+        }
+        public override int Create(User user)
+        {
+            user.Password = passwordHasher.HashPassword(user.Navn, user.Password);
+            return base.Create(user);
+        }
         public List<string> Roles
         {
             get
@@ -26,7 +37,9 @@ namespace RosBilRP.Services
 
         private bool VerifyPassword(User user, string providedPassword)
         {
-            return user.Password == providedPassword;
+            PasswordVerificationResult result = passwordHasher.VerifyHashedPassword(user.Navn,user.Password, providedPassword);
+
+            return result == PasswordVerificationResult.Success;
         }
     }
 }
